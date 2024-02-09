@@ -26,10 +26,10 @@ public class Main {
     @Bean
     CommandLineRunner runner(
             CustomerRepository customerRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder, S3Buckets s3Buckets, S3Service s3Service) {
         return args -> {
-            createRandomCustomer(customerRepository, passwordEncoder);
-            // testBucketUploadAndDownload(s3Service, s3Buckets);
+//            createRandomCustomer(customerRepository, passwordEncoder);
+            testBucketUploadAndDownload(s3Service, s3Buckets);
         };
     }
 
@@ -37,13 +37,13 @@ public class Main {
                                                     S3Buckets s3Buckets) {
         s3Service.putObject(
                 s3Buckets.getCustomer(),
-                "foo/bar/jamila",
+                "foo/bar/djamila",
                 "Hello World".getBytes()
         );
 
         byte[] obj = s3Service.getObject(
                 s3Buckets.getCustomer(),
-                "foo/bar/jamila"
+                "foo/bar/djamila"
         );
 
         System.out.println("Hooray: " + new String(obj));
@@ -59,7 +59,7 @@ public class Main {
         Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
         String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@amigoscode.com";
         Customer customer = new Customer(
-                firstName +  " " + lastName,
+                firstName + " " + lastName,
                 email,
                 passwordEncoder.encode("password"),
                 age,

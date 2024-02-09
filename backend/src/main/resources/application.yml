@@ -10,11 +10,11 @@ cors:
   exposed-headers: "*"
 
 aws:
-  region: eu-west-1
+  region: us-east-1
   s3:
-    mock: true
+    mock: false
     buckets:
-      customer: fs-amigoscode-customer-test
+      customer: spring-test-tutorial
 
 management:
   endpoints:

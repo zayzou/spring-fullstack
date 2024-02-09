@@ -22,7 +22,7 @@ public class FakeS3 implements S3Client {
 
     // TODO: Check if this works for Windows users
     private static final String PATH =
-            System.getProperty("user.home") + "/.amigoscode/s3";
+            System.getProperty("user.home") + "/.fake-aws/s3";
 
     @Override
     public String serviceName() {
@@ -44,9 +44,9 @@ public class FakeS3 implements S3Client {
             byte[] bytes = IOUtils.toByteArray(inputStream);
             FileUtils.writeByteArrayToFile(
                     new File(
-                         buildObjectFullPath(
-                                 putObjectRequest.bucket(),
-                                 putObjectRequest.key())
+                            buildObjectFullPath(
+                                    putObjectRequest.bucket(),
+                                    putObjectRequest.key())
                     ),
                     bytes
             );
@@ -59,7 +59,7 @@ public class FakeS3 implements S3Client {
     @Override
     public ResponseInputStream<GetObjectResponse> getObject(
             GetObjectRequest getObjectRequest)
-            throws  AwsServiceException, SdkClientException {
+            throws AwsServiceException, SdkClientException {
 
         try {
             FileInputStream fileInputStream = new FileInputStream(
